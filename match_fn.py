@@ -38,11 +38,13 @@ class Ranker():
 
   def query2articles(self, query, articles, num=5):
     """
-    Input text is list of tokens
+    Takes in a tokenized query and a list of tokenized articles.
+    Return top-ranked 'num' articles from the input list.
 
     Args
-      query: list of words
-      articles: list of list of words
+      query: list, tokenized query
+      articles: list, list of tokenized articles
+      num: number of articles to return
     Returns
       Ranked indexes to the input list of articles
     """
@@ -57,9 +59,13 @@ class Ranker():
   
   def article2queries(self, article, queries, num=5):
     """
+    Takes in a tokenized article and a list of tokenized queries.
+    Return top-ranked 'num' queries from the input list.
+
     Args
-      queries: list of str
-      article: str
+      queries: list, tokenized article
+      article: list, list of tokenized query
+      num: number of queries to return
     Returns
       Ranked indexes to the input list of queries
     """
@@ -73,17 +79,14 @@ class Ranker():
     return ids
   
 if __name__ == "__main__":
-  # Example use
+  ## Example use
   # Directory containing checkpoint file
   model_dir = "experiments/signal-news/embed-rand-d768-b1000-e30-margin/best_weights"
   # Directory containing vocab file
   data_dir = "data/signal-news"
+  # Create the ranker object and load model weights
   ranker = Ranker(model_dir, data_dir)
 
-  q = "rapid technological change".split()
-  # arts = load_by_line(data_dir + "/test/articles.txt", 100)
-  # article = word_tokenize("Unless more incriminating evidence emerges to dramatically alter public perception, the impeachment trial of Donald Trump is effectively over. It’s comforting, no doubt, to believe that Trump has survived this entire debacle because he possesses a tighter hold on his party than Barack Obama or George W. Bush or any other contemporary president did. But while partisanship might be corrosive, it’s also the norm. In truth, Trump, often because of his own actions, has likely engendered less loyalty than the average president, not more.".lower()
-  # )
   article = word_tokenize("Taiwan's vice president-elect William Lai will go to this week's high-profile National Prayer Breakfast in Washington, he said on Monday, an event traditionally attended by U.S. presidents and which President Donald Trump was at last year. Lai, who assumes office in May, has angered China by saying he is a \"realistic worker for Taiwan independence\", a red line for Beijing which considers the island merely a Chinese province with no right to state-to-state relations.".lower()
   )
   drivers = [s.lower().split() for s in ["Govt and ANSF Strategic Communication and IO Increasing",
@@ -94,6 +97,5 @@ if __name__ == "__main__":
             "Govt Funding Adequacy Increasing",
             "Fear of Govt ANSF and Coalition Repercussions Increasing"]]
 
-  print(" ".join(article)[:500], '\n')
-  # print(ranker.query2articles(q, arts))
-  print(ranker.article2queries(article, drivers, -1))
+  print(" ".join(article[:100]), '\n')
+  ids = ranker.article2queries(article, drivers, 5)
