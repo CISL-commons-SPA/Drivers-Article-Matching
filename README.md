@@ -47,9 +47,10 @@ python match_fn.py
 To call the ranking functions from a different script in the same folder.
 ```python
 # Import everything from match_fn
-from match_fn import *
+import match_fn
+from nltk import word_tokenize
 # Create the ranker object and load model weights
-ranker = Ranker(model_dir, data_dir)
+ranker = match_fn.Ranker(model_dir, data_dir)
 ```
 
 A query or an article is a list of tokenized lowercase words. Use `word_tokenize` function from nltk to tokenize a piece of text (query or article)
@@ -60,7 +61,7 @@ For query->articles, create a list of articles and rank them.
 query = word_tokenize(query_text.lower())
 # articles is a list of tokenized articles and article_text_list is a list of article texts
 articles = [word_tokenize(article_text.lower()) for article_text in article_text_list]
-ids = ranker.query2articles(query, articles, 5)
+ids = match_fn.ranker.query2articles(query, articles, 5)
 ```
 
 For article->queries, create a list of queries and rank them.
@@ -70,5 +71,5 @@ article = word_tokenize(article_text.lower())
 # queries is a list of tokenized queries and query_text_list is a list of query texts
 queries = [word_tokenize(query_text.lower()) for query_text in query_text_list]
 # queries is a list of queries
-ids = ranker.article2queries(article, queries, 5)
+ids = match_fn.ranker.article2queries(article, queries, 5)
 ```
