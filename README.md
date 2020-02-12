@@ -22,7 +22,7 @@ conda install --file requirements.txt
 ```
 
 The `word_tokenize` function in nltk requires punkt tokenizer. 
-After installing nltk, run the following.
+After installing the libraries, run the following.
 ```bash
 python -c "import nltk; nltk.download('punkt')"
 ```
