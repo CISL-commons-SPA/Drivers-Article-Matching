@@ -2,16 +2,42 @@
 Drivers to Article and Article to Driver Matching for the SPA project
 
 ## Description
+In this project we are performing two main tasks. 
+- Given a query, rank a list of articles
+- Given an article, rank a list of queries  
 
+based on a similarity score.
 
 ## Link to Model Weights
 https://rpi.box.com/s/ym36qaofw2rk93h3t7zbpnphu25p0q7z
 
 
 ## Installation
+Required libraries
+- tensorflow
+- numpy
+- nltk
+
+Use conda to install the libraries.
+```
+conda install <package_name>
+```
+
+The `word_tokenize` function in nltk requires punkt tokenizer. 
+After installing nltk, run the following in python.
+```
+import nltk
+nltk.download('punkt')
+```
 
 ## Usage
 Example use is shown in `match_fn.py`  
+
+Download the model weights and vocabulary from the link.
+After extracting the zip file, you get a `best_weights` folder.
+This is the `model_dir`.
+Put `vocab100` file in a folder.
+The folder containing `vocab100` file is the `data_dir`.
 
 ```python
 # Create the ranker object and load model weights
