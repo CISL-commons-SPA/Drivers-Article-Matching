@@ -69,7 +69,7 @@ For query->articles, create a list of articles and rank them.
 query = word_tokenize(query_text.lower())
 # articles is a list of tokenized articles and article_text_list is a list of article texts
 articles = [word_tokenize(article_text.lower()) for article_text in article_text_list]
-ids = match_fn.ranker.query2articles(query, articles, 5)
+ids = ranker.query2articles(query, articles, 5)
 ```
 
 For article->queries, create a list of queries and rank them.
@@ -79,5 +79,5 @@ article = word_tokenize(article_text.lower())
 # queries is a list of tokenized queries and query_text_list is a list of query texts
 queries = [word_tokenize(query_text.lower()) for query_text in query_text_list]
 # queries is a list of queries
-ids = match_fn.ranker.article2queries(article, queries, 5)
+ids = ranker.article2queries(article, queries, 5)
 ```
