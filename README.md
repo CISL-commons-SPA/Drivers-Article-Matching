@@ -22,20 +22,25 @@ conda install --file requirements.txt
 ```
 
 The `word_tokenize` function in nltk requires punkt tokenizer. 
-After installing nltk, run the following in python.
-```python
-import nltk
-nltk.download('punkt')
+After installing nltk, run the following.
+```bash
+python -c "import nltk; nltk.download('punkt')"
+```
+
+Create the `data` folder to keep the weights.
+```bash
+mkdir data
+```
+Download the files from the link to the `data` folder.
+Extract the zip file.
+```bash
+cd data
+unzip model_weights.zip
+cd ..
 ```
 
 ## Usage
 Example use is shown in `match_fn.py`  
-
-Download the model weights and vocabulary from the link.
-After extracting the zip file, you get a `best_weights` folder.
-This is the `model_dir`.
-Put `vocab100` file in a folder.
-The folder containing `vocab100` file is the `data_dir`.
 
 This file has an example article and a list of drivers.
 For ranking them, run
@@ -46,11 +51,14 @@ python match_fn.py
 ## Using the functions
 To call the ranking functions from a different script in the same folder.
 ```python
-# Import everything from match_fn
-import match_fn
+from match_fn import Ranker
 from nltk import word_tokenize
+# Directory containing checkpoint file
+model_dir = "data/best_weights"
+# Directory containing vocab file
+data_dir = "data"
 # Create the ranker object and load model weights
-ranker = match_fn.Ranker(model_dir, data_dir)
+ranker = Ranker(model_dir, data_dir)
 ```
 
 A query or an article is a list of tokenized lowercase words. Use `word_tokenize` function from nltk to tokenize a piece of text (query or article)
