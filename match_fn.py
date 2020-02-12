@@ -81,9 +81,9 @@ class Ranker():
 if __name__ == "__main__":
   ## Example use
   # Directory containing checkpoint file
-  model_dir = "experiments/signal-news/embed-rand-d768-b1000-e30-margin/best_weights"
+  model_dir = "data/best_weights"
   # Directory containing vocab file
-  data_dir = "data/signal-news"
+  data_dir = "data"
   # Create the ranker object and load model weights
   ranker = Ranker(model_dir, data_dir)
 
