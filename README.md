@@ -22,7 +22,7 @@ conda install --file requirements.txt
 
 The `word_tokenize` function in nltk requires punkt tokenizer. 
 After installing nltk, run the following in python.
-```
+```python
 import nltk
 nltk.download('punkt')
 ```
@@ -36,6 +36,13 @@ This is the `model_dir`.
 Put `vocab100` file in a folder.
 The folder containing `vocab100` file is the `data_dir`.
 
+This file has an example article and a list of drivers.
+For ranking them, run
+```
+python match_fn.py
+```
+
+## Using the functions
 ```python
 # Create the ranker object and load model weights
 ranker = Ranker(model_dir, data_dir)
