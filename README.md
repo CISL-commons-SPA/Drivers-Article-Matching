@@ -3,7 +3,8 @@ Drivers to Article and Article to Driver Matching for the SPA project
 
 ## Description
 Information retrieval using neural models. 
-We leverage the semantic meaning learning by neural models to match a query with an article.  
+We leverage the semantic meaning learned by neural models to match a query with an article.
+
 In this project we are performing two main tasks. 
 - Given a query, rank a list of articles
 - Given an article, rank a list of queries  
