@@ -2,6 +2,8 @@
 Drivers to Article and Article to Driver Matching for the SPA project
 
 ## Description
+Information retrieval using neural models. 
+We leverage the semantic meaning learning by neural models to match a query with an article.  
 In this project we are performing two main tasks. 
 - Given a query, rank a list of articles
 - Given an article, rank a list of queries  
@@ -13,14 +15,9 @@ https://rpi.box.com/s/ym36qaofw2rk93h3t7zbpnphu25p0q7z
 
 
 ## Installation
-Required libraries
-- tensorflow
-- numpy
-- nltk
-
 Use conda to install the libraries.
 ```
-conda install <package_name>
+conda install --file requirements.txt
 ```
 
 The `word_tokenize` function in nltk requires punkt tokenizer. 
