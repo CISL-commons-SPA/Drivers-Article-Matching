@@ -8,11 +8,6 @@ from load_embed import Embedding
 app = Flask(__name__)
 @app.route('/receive/<data>', methods=['POST'])
 
-#query for object
-#create branch and push
-#create readme
-#ask matt about what he wants sent and returned
-
 def get_data(data):
   data = request.get_json()
   print(data)
