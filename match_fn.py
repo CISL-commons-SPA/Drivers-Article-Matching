@@ -1,7 +1,22 @@
 from nltk import word_tokenize
 import numpy as np
+from flask import Flask, request, jsonify, render_template, g
+import requests, json
 
 from load_embed import Embedding
+
+app = Flask(__name__)
+@app.route('/receive/<data>', methods=['POST'])
+
+#query for object
+#create branch and push
+#create readme
+#ask matt about what he wants sent and returned
+
+def get_data(data):
+  data = request.get_json()
+  print(data)
+  return jsonify(data)
 
 def load_by_line(path_to_file, max_lines=-1):
   lines = []
@@ -28,6 +43,7 @@ def rank(qemb, aembs, num=5):
   return highsim_idxs, adist[highsim_idxs]
 
 class Ranker():
+
   def __init__(self, model_dir, data_dir):
     """
     Args
@@ -52,9 +68,14 @@ class Ranker():
     aemb = np.vstack([self.embed.get_article_embed(a[:1000]) for a in articles])
     aemb /= np.linalg.norm(aemb, axis=-1, keepdims=True)
     ids, dots = rank(qemb, aemb, num=num)
+    drivers = []
+    probs = []
     for r in range(len(ids)):
+      drivers.append(" ".join(articles[ids[r]][:50]))
+      probs.append(sigmoid(dots[r]))
       print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), " ".join(articles[ids[r]][:50]), "\n")
-    
+    data = [{"driver" : drivers[i], "prob" : probs[i]} for i in range(len(drivers))] 
+    res = requests.post('http://127.0.0.1:5000/receive/<data>', json = data)
     return ids
   
   def article2queries(self, article, queries, num=5):
@@ -73,29 +94,34 @@ class Ranker():
     qemb = np.vstack([self.embed.get_query_embed(q) for q in queries])
     qemb /= np.linalg.norm(qemb, axis=-1, keepdims=True)
     ids, dots = rank(aemb, qemb, num=num)
+    drivers = []
+    probs = []
     for r in range(len(ids)):
+      drivers.append(" ".join(queries[ids[r]]))
+      probs.append(sigmoid(dots[r]))
       print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), " ".join(queries[ids[r]]), "\n")
-    
+    data = [{"driver" : drivers[i], "prob" : probs[i]} for i in range(len(drivers))] 
+    res = requests.post('http://127.0.0.1:5000/receive/<data>', json = data)
     return ids
   
 if __name__ == "__main__":
-  ## Example use
-  # Directory containing checkpoint file
-  model_dir = "data/best_weights"
-  # Directory containing vocab file
-  data_dir = "data"
-  # Create the ranker object and load model weights
-  ranker = Ranker(model_dir, data_dir)
+  with app.app_context():
+    ## Example use
+    # Directory containing checkpoint file
+    model_dir = "data/best_weights"
+    # Directory containing vocab file
+    data_dir = "data"
+    # Create the ranker object and load model weights
+    ranker = Ranker(model_dir, data_dir)
 
-  article = word_tokenize("Taiwan's vice president-elect William Lai will go to this week's high-profile National Prayer Breakfast in Washington, he said on Monday, an event traditionally attended by U.S. presidents and which President Donald Trump was at last year. Lai, who assumes office in May, has angered China by saying he is a \"realistic worker for Taiwan independence\", a red line for Beijing which considers the island merely a Chinese province with no right to state-to-state relations.".lower()
-  )
-  drivers = [s.lower().split() for s in ["Govt and ANSF Strategic Communication and IO Increasing",
-            "Govt and Contractor Corruption and Tribal Favoritism Decreasing",
-            "Govt Funding Adequacy Decreasing",
-            "US Govt Support for Operation Increasing",
-            "US Govt Support for Operation Decreasing",
-            "Govt Funding Adequacy Increasing",
-            "Fear of Govt ANSF and Coalition Repercussions Increasing"]]
+    article = word_tokenize("Taiwan's vice president-elect William Lai will go to this week's high-profile National Prayer Breakfast in Washington, he said on Monday, an event traditionally attended by U.S. presidents and which President Donald Trump was at last year. Lai, who assumes office in May, has angered China by saying he is a \"realistic worker for Taiwan independence\", a red line for Beijing which considers the island merely a Chinese province with no right to state-to-state relations.".lower()
+    )
+    drivers = [s.lower().split() for s in ["Govt and ANSF Strategic Communication and IO Increasing",
+              "Govt and Contractor Corruption and Tribal Favoritism Decreasing",
+              "Govt Funding Adequacy Decreasing",
+              "US Govt Support for Operation Increasing",
+              "US Govt Support for Operation Decreasing",
+              "Govt Funding Adequacy Increasing",
+              "Fear of Govt ANSF and Coalition Repercussions Increasing"]]
 
-  print(" ".join(article[:100]), '\n')
-  ids = ranker.article2queries(article, drivers, 5)
+    ids = ranker.article2queries(article, drivers, 5)
