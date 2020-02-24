@@ -33,6 +33,10 @@ cd ..
 ```
 
 ## Usage
+To initialize the Flask server, the makefile can be run via the following command:
+```bash
+make run
+```
 Some example use is shown in `match_fn.py`, which has has an example article and a list of drivers.
 To rank them, you can run:
 ```bash
