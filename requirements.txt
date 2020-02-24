@@ -1,3 +1,4 @@
 tensorflow>=1.5,<1.14
 numpy
 nltk
+Flask

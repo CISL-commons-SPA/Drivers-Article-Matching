@@ -1,38 +1,31 @@
 # Drivers-Article-Matching
-Drivers to Article and Article to Driver Matching for the SPA project
+This repository contains Drivers to Article and Article to Driver Matching for the SPA project
 
 ## Description
-Information retrieval using neural models. 
-We leverage the semantic meaning learned by neural models to match a query with an article.
+This project is focues on doing information retrieval by using neural models. 
+We leverage the semantic meaning learned by neural models to match a query with an article and send to a POST endpoint via Flask.
 
-In this project we are performing two main tasks. 
+In this project we are performing two main tasks, both of which are based on a similarity score: 
 - Given a query, rank a list of articles
 - Given an article, rank a list of queries  
 
-based on a similarity score.
-
-## Link to Model Weights
-https://rpi.box.com/s/ym36qaofw2rk93h3t7zbpnphu25p0q7z
-
-
 ## Installation
-Use conda to install the libraries.
-```
+First use conda to install the libraries.
+```bash
 conda install --file requirements.txt
 ```
 
-The `word_tokenize` function in nltk requires punkt tokenizer. 
-After installing the libraries, run the following.
+The `word_tokenize` function in nltk requires punkt tokenizer, so after installing the libraries, run the following on the command line:
 ```bash
 python -c "import nltk; nltk.download('punkt')"
 ```
 
-Create the `data` folder to keep the weights.
+A directory called `data` is also need to store the weights, so mkdir can be used to make one:
 ```bash
 mkdir data
 ```
-Download the files from the link to the `data` folder.
-Extract the zip file.
+The model weights can be dowloaded from the link below, and should be unzipped in the data directory:
+Link to model weights: https://rpi.box.com/s/ym36qaofw2rk93h3t7zbpnphu25p0q7z
 ```bash
 cd data
 unzip model_weights.zip
@@ -40,16 +33,14 @@ cd ..
 ```
 
 ## Usage
-Example use is shown in `match_fn.py`  
-
-This file has an example article and a list of drivers.
-For ranking them, run
-```
+Some example use is shown in `match_fn.py`, which has has an example article and a list of drivers.
+To rank them, you can run:
+```bash
 python match_fn.py
 ```
 
 ## Using the functions
-To call the ranking functions from a different script in the same folder.
+To call the ranking functions from a different script in the same folder, you can do the following:
 ```python
 from match_fn import Ranker
 from nltk import word_tokenize
@@ -61,9 +52,9 @@ data_dir = "data"
 ranker = Ranker(model_dir, data_dir)
 ```
 
-A query or an article is a list of tokenized lowercase words. Use `word_tokenize` function from nltk to tokenize a piece of text (query or article)
+A query or an article is a list of tokenized lowercase words, so the `word_tokenize` function from nltk can be used to tokenize either a query or an article, both of which are demonstrated below.
 
-For query->articles, create a list of articles and rank them.
+For query->articles, create a list of articles and rank them in the following way:
 ```python
 # query text is a string
 query = word_tokenize(query_text.lower())
@@ -72,7 +63,7 @@ articles = [word_tokenize(article_text.lower()) for article_text in article_text
 ids = ranker.query2articles(query, articles, 5)
 ```
 
-For article->queries, create a list of queries and rank them.
+For article->queries, create a list of queries and rank them in the following way:
 ```python
 # article text is a string
 article = word_tokenize(article_text.lower())

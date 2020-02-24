@@ -1,17 +1,9 @@
 from nltk import word_tokenize
 import numpy as np
-from flask import Flask, request, jsonify, render_template, g
-import requests, json
-
+import requests
+import flask_server
 from load_embed import Embedding
-
-app = Flask(__name__)
-@app.route('/receive/<data>', methods=['POST'])
-
-def get_data(data):
-  data = request.get_json()
-  print(data)
-  return jsonify(data)
+from flask import Flask, request, jsonify
 
 def load_by_line(path_to_file, max_lines=-1):
   lines = []
@@ -100,6 +92,7 @@ class Ranker():
     return ids
   
 if __name__ == "__main__":
+  app = flask_server.create_app()
   with app.app_context():
     ## Example use
     # Directory containing checkpoint file
