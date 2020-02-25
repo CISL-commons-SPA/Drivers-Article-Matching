@@ -25,7 +25,9 @@ A directory called `data` is also need to store the weights, so mkdir can be use
 mkdir data
 ```
 The model weights can be dowloaded from the link below, and should be unzipped in the data directory:
+
 Link to model weights: https://rpi.box.com/s/ym36qaofw2rk93h3t7zbpnphu25p0q7z
+
 ```bash
 cd data
 unzip model_weights.zip
