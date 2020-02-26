@@ -44,7 +44,7 @@ To initialize the Flask server, the makefile can be run via the following comman
 make run
 ```
 
-To test, traverse to the root of the repository and execute:
+To test the server after initialization, traverse to the root of the repository and execute:
 
 ```bash
 make test
