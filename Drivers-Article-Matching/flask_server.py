@@ -26,4 +26,12 @@ def create_app():
 		data = ranker.article2queries(article, queries, num)
 		return jsonify(data)
 
+<<<<<<< HEAD:Drivers-Article-Matching/app.py
 	return app
+=======
+	def get_data(data):
+	  data = request.get_json()
+	  print(data)
+	  return jsonify(data)
+	return app
+>>>>>>> 88deb1e1c8677f74ee5b15a5eae7d4d085b0ac8a:Drivers-Article-Matching/flask_server.py

@@ -33,20 +33,35 @@ cd data
 unzip model_weights.zip
 cd ..
 ```
+run:
+	FLASK_APP="Drivers-Article-Matching/flask_server.py" flask run
+test:
+	python3 Drivers-Article-Matching/match_fn.py
 
 ## Usage
 To initialize the Flask server, the makefile can be run via the following command:
 ```bash
 make run
 ```
+
+To test the server after initialization, traverse to the root of the repository and execute:
+
+```bash
+make test
+```
+
 Some example use is shown in `match_fn.py`, which has has an example article and a list of drivers.
 To rank them, you can run:
 ```bash
+<<<<<<< HEAD
 make test
 ```
 or:
 ```bash
 python match_fn.py
+=======
+python Drivers-Article-Matching/match_fn.py
+>>>>>>> 88deb1e1c8677f74ee5b15a5eae7d4d085b0ac8a
 ```
 
 ## Using the functions
