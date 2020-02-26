@@ -1,9 +1,8 @@
 from nltk import word_tokenize
 import numpy as np
 import requests
-import flask_server
 from load_embed import Embedding
-from flask import Flask, request, jsonify
+# from flask import Flask, request, jsonify
 
 def load_by_line(path_to_file, max_lines=-1):
   lines = []
@@ -58,12 +57,10 @@ class Ranker():
     drivers = []
     probs = []
     for r in range(len(ids)):
-      drivers.append(" ".join(articles[ids[r]][:50]))
       probs.append(sigmoid(dots[r]))
       print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), " ".join(articles[ids[r]][:50]), "\n")
-    data = [{"driver" : drivers[i], "prob" : probs[i]} for i in range(len(drivers))] 
-    res = requests.post('http://127.0.0.1:5000/receive/<data>', json = data)
-    return ids
+    data = [{"index" : ids[i], "prob" : probs[i]} for i in range(len(drivers))] 
+    return data
   
   def article2queries(self, article, queries, num=5):
     """
@@ -88,17 +85,14 @@ class Ranker():
       probs.append(sigmoid(dots[r]))
       print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), " ".join(queries[ids[r]]), "\n")
     data = [{"driver" : drivers[i], "prob" : probs[i]} for i in range(len(drivers))] 
-    res = requests.post('http://127.0.0.1:5000/receive/<data>', json = data)
-    return ids
+    return data
   
 if __name__ == "__main__":
-  app = flask_server.create_app()
-  with app.app_context():
     ## Example use
     # Directory containing checkpoint file
-    model_dir = "data/best_weights"
+    model_dir = "../data/best_weights"
     # Directory containing vocab file
-    data_dir = "data"
+    data_dir = "../data"
     # Create the ranker object and load model weights
     ranker = Ranker(model_dir, data_dir)
 
@@ -111,5 +105,6 @@ if __name__ == "__main__":
               "US Govt Support for Operation Decreasing",
               "Govt Funding Adequacy Increasing",
               "Fear of Govt ANSF and Coalition Repercussions Increasing"]]
-
-    ids = ranker.article2queries(article, drivers, 5)
+    ids = {"article" : article, "queries" : drivers, "num" : 5}
+    result = requests.post('http://127.0.0.1:5000/article2queries', json = ids)   
+    print(result.text)

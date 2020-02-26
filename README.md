@@ -42,6 +42,10 @@ make run
 Some example use is shown in `match_fn.py`, which has has an example article and a list of drivers.
 To rank them, you can run:
 ```bash
+make test
+```
+or:
+```bash
 python match_fn.py
 ```
 
