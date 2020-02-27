@@ -59,12 +59,14 @@ class Ranker():
     aemb = np.vstack([self.embed.get_article_embed(a[:1000]) for a in articles])
     aemb /= np.linalg.norm(aemb, axis=-1, keepdims=True)
     ids, dots = rank(qemb, aemb, num=num)
-    drivers = []
+    # drivers = []
+    results = []
     probs = []
     for r in range(len(ids)):
+      results.append(articles[ids[r]][:50])
       probs.append(sigmoid(dots[r]))
       print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), " ".join(articles[ids[r]][:50]), "\n")
-    data = [{"index" : ids[i], "prob" : probs[i]} for i in range(len(drivers))] 
+    data = [{"index" : int(ids[i]), "prob" : probs[i]} for i in range(len(results))] 
     return data
   
   def article2queries(self, article, queries, num=5):
