@@ -49,13 +49,13 @@ make test
 Some example use is shown in `match_fn.py`, which has has an example article and a list of drivers.
 To rank them, you can run:
 ```bash
-python match_fn.py
+python dlib/match_fn.py
 ```
 
 ## Using the functions
 To call the ranking functions from a different script in the same folder, you can do the following:
 ```python
-from match_fn import Ranker
+from dlib import Ranker
 from nltk import word_tokenize
 # Directory containing checkpoint file
 model_dir = "data/best_weights"
@@ -73,7 +73,7 @@ For query->articles, create a list of articles and rank them in the following wa
 query = word_tokenize(query_text.lower())
 # articles is a list of tokenized articles and article_text_list is a list of article texts
 articles = [word_tokenize(article_text.lower()) for article_text in article_text_list]
-ids = ranker.query2articles(query, articles, 5)
+data = ranker.query2articles(query, articles, 5)
 ```
 
 For article->queries, create a list of queries and rank them in the following way:
@@ -83,5 +83,5 @@ article = word_tokenize(article_text.lower())
 # queries is a list of tokenized queries and query_text_list is a list of query texts
 queries = [word_tokenize(query_text.lower()) for query_text in query_text_list]
 # queries is a list of queries
-ids = ranker.article2queries(article, queries, 5)
+data = ranker.article2queries(article, queries, 5)
 ```
