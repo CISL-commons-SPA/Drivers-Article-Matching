@@ -42,8 +42,11 @@ cd ..
 ## Usage
 Example use is shown in `match_fn.py`  
 
-This file has an example article and a list of drivers.
-For ranking them, run
+This file has two examples.  
+1) given an article, rank a list of drivers
+2) given a query, rank a list of articles
+
+To run the examples
 ```
 python match_fn.py
 ```
