@@ -2,6 +2,7 @@ import requests
 from flask import Flask, request, jsonify	
 from nltk import word_tokenize
 from dlib import Ranker
+import pdb
 
 def create_app():
 	app = Flask(__name__)
@@ -15,6 +16,8 @@ def create_app():
 		query = content.get('query')
 		articles = content.get("articles")
 		num = content.get('num')
+		query = word_tokenize(query.lower())
+		articles = [word_tokenize(article.lower()) for article in articles]
 		data = ranker.query2articles(query, articles, num)
 		return jsonify(data)
 
@@ -24,6 +27,8 @@ def create_app():
 		article = content.get("article")
 		queries = content.get('queries')
 		num = content.get('num')
+		article = word_tokenize(article.lower())
+		queries = [word_tokenize(query.lower()) for query in queries]
 		data = ranker.article2queries(article, queries, num)
 		return jsonify(data)
 
