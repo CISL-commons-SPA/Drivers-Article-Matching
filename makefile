@@ -1,4 +1,5 @@
 run:
-	FLASK_APP="Drivers-Article-Matching/flask_server.py" flask run
+# 	FLASK_APP="Drivers-Article-Matching/app.py"
+	flask run
 test:
-	python3 Drivers-Article-Matching/match_fn.py
+	python3 dlib/match_fn.py

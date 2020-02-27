@@ -1,8 +1,13 @@
 from nltk import word_tokenize
 import numpy as np
 import requests
-from load_embed import Embedding
-# from flask import Flask, request, jsonify
+import sys
+pmod = sys.modules['.'.join(__name__.split('.')[:-1]) or '__main__']
+if __name__ == '__main__' or pmod.__name__ == '__main__':
+    from load_embed import Embedding
+else:
+
+    from .load_embed import Embedding
 
 def load_by_line(path_to_file, max_lines=-1):
   lines = []
@@ -90,9 +95,9 @@ class Ranker():
 if __name__ == "__main__":
     ## Example use
     # Directory containing checkpoint file
-    model_dir = "../data/best_weights"
+    model_dir = "data/best_weights"
     # Directory containing vocab file
-    data_dir = "../data"
+    data_dir = "data"
     # Create the ranker object and load model weights
     ranker = Ranker(model_dir, data_dir)
 
