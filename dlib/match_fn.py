@@ -2,6 +2,7 @@ from nltk import word_tokenize
 import numpy as np
 import requests
 import sys
+import pdb
 pmod = sys.modules['.'.join(__name__.split('.')[:-1]) or '__main__']
 if __name__ == '__main__' or pmod.__name__ == '__main__':
     from load_embed import Embedding
@@ -65,7 +66,7 @@ class Ranker():
     for r in range(len(ids)):
       results.append(articles[ids[r]][:50])
       probs.append(sigmoid(dots[r]))
-      print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), " ".join(articles[ids[r]][:50]), "\n")
+      print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), articles[ids[r]][:50], "\n")
     data = [{"index" : int(ids[i]), "prob" : probs[i]} for i in range(len(results))] 
     return data
   
@@ -87,10 +88,10 @@ class Ranker():
     ids, dots = rank(aemb, qemb, num=num)
     drivers = []
     probs = []
-    for r in range(len(ids)):
-      drivers.append(" ".join(queries[ids[r]]))
+    for r,id_ in enumerate(ids):
+      drivers.append(queries[ids[r]])
       probs.append(sigmoid(dots[r]))
-      print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), " ".join(queries[ids[r]]), "\n")
+      print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), queries[ids[r]], "\n")
     data = [{"driver" : drivers[i], "prob" : probs[i]} for i in range(len(drivers))] 
     return data
   
