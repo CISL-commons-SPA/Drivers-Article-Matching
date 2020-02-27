@@ -97,5 +97,15 @@ if __name__ == "__main__":
             "Govt Funding Adequacy Increasing",
             "Fear of Govt ANSF and Coalition Repercussions Increasing"]]
 
-  print(" ".join(article[:100]), '\n')
-  ids = ranker.article2queries(article, drivers, 5)
+  print("Article:", " ".join(article[:100]), '\n')
+  qids = ranker.article2queries(article, drivers, 5)
+  
+  query = word_tokenize("Govt Funding Adequacy Decreasing")
+  articles = [word_tokenize("Unless more incriminating evidence emerges to dramatically alter public perception, the impeachment trial of Donald Trump is effectively over. It’s comforting, no doubt, to believe that Trump has survived this entire debacle because he possesses a tighter hold on his party than Barack Obama or George W. Bush or any other contemporary president did. But while partisanship might be corrosive, it’s also the norm. In truth, Trump, often because of his own actions, has likely engendered less loyalty than the average president, not more.".lower())
+              , word_tokenize("Taiwan's vice president-elect William Lai will go to this week's high-profile National Prayer Breakfast in Washington, he said on Monday, an event traditionally attended by U.S. presidents and which President Donald Trump was at last year. Lai, who assumes office in May, has angered China by saying he is a \"realistic worker for Taiwan independence\", a red line for Beijing which considers the island merely a Chinese province with no right to state-to-state relations.".lower())
+              , word_tokenize("China has released a two-year action plan to promote the purchase of consumer goods from new energy vehicles to 5G handsets in the latest move to offset the escalating trade war with the United States that continues to hit the world’s second largest economy. In a joint circular published on Thursday, the National Development and Reform Commission (NDRC), the Ministry of Commerce and the environment protection ministry vowed to promote the upgrading and recycling of cars, home appliances, consumer electronics and other products.".lower())
+              , word_tokenize("GIBRALTAR has lashed out at Brussels over a power grab which would see the bloc increase Spain's power over the territory in post-Brexit agreements. Gibraltar’s government has said it is not surprising guidelines \"once again refer to Gibraltar in a special way\". This is because the approach is similar to that deployed by the bloc in 2017 and 2018. Chief Minister of Gibraltar, Fabian Picardo said: \"The guidelines published by the EU are not surprising at all. \"However, frankly, this continued insistence on the exclusion of Gibraltar says a lot about the EU. We will maintain a positive attitude towards the future.\"".lower())]
+
+  print("Query:", " ".join(query), '\n')
+  aids = ranker.query2articles(query, articles, 5)
+  
