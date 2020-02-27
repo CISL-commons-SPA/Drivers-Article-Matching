@@ -63,7 +63,7 @@ class Ranker():
     results = []
     probs = []
     for r in range(len(ids)):
-      results.append(" ".join(articles[ids[r]][:50])
+      results.append(" ".join(articles[ids[r]][:50]))
       probs.append(sigmoid(dots[r]))
       print("Rank %d: Index %d, prob = %.2f" %(r+1, ids[r], sigmoid(dots[r])), " ".join(articles[ids[r]][:50]), "\n")
     data = [{"index" : int(ids[i]), "prob" : probs[i]} for i in range(len(results))] 
