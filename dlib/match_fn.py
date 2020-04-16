@@ -96,7 +96,6 @@ class Ranker():
     data = [{"driver" : drivers[i], "prob" : probs[i]} for i in range(len(drivers))] 
     return data
 
-#5 untracked hours
   def accumulate_text(self, ranker, queries, articles, num = 10):
     ranked_articles = []
     # allvalues = [[] for i in range(len(queries))]
