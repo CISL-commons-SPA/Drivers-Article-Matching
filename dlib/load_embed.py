@@ -50,7 +50,7 @@ class Embedding(object):
     elif verbose:
       print('Using the provided checkpoint file: ', self.ckpt_file)
 
-    meta_graph_path = latest_ckpt_file + '.meta'
+    meta_graph_path = str(latest_ckpt_file) + '.meta'
     new_saver = tf.train.import_meta_graph(meta_graph_path)
     new_saver.restore(self.session, latest_ckpt_file)
 
