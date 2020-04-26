@@ -70,11 +70,17 @@ To run the Exploratory Ranking functions, you can do the following:
 python3 e_rank.py driver_file article_file result_directory N arvn_n
 ```
 Where:
+
 driver_file is the location of a text file of divers
+
 article_file is the location of a .jsonl file with articles
+
 result_directory is an existing directory where you want the results to go
+
 N is the number of text elements wanted from the score vector in ARVN (default 10) 
+
 arvn_n is the number of text elements wanted from ARVN (default 10)
+
 
 ## Using the functions
 To call the ranking functions from a different script in the same folder, you can do the following:
