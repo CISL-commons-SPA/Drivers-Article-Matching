@@ -2,12 +2,25 @@
 This repository contains Drivers to Article and Article to Driver Matching for the SPA project
 
 ## Description
-This project is focues on doing information retrieval by using neural models. 
+This project is focuses on doing information retrieval by using neural models. 
 We leverage the semantic meaning learned by neural models to match a query with an article and send to a POST endpoint via Flask.
 
 In this project we are performing two main tasks, both of which are based on a similarity score: 
 - Given a query, rank a list of articles
 - Given an article, rank a list of queries  
+
+This specific branch is written as per instructions from Hui as per this email:
+
+- Driver-Article Matching(DAM): Anik's algorithm
+- Driver-Article Relevance Value( DARV): Similarity output value by DAM for each Article against each Driver
+- Aggregated Relevance Value (ARV): the sum of the relevance value of all items divided by the number of items
+- Aggregated Relevance Value of Top N items in the ranking list(ARVN): the sum of the relevance value of top N items in the list divided by N
+- Task No. 1
+- Applying DAM to all 1800 against Driver(i) to get a Rank List for Driver i, which is RLD(i)
+- Calculate ARVN (start with N=10) with RLD(i) and get ARVN (i)
+- Rank all ARVN(i) and pick top 10 with bigger ARVN and select 10 Drivers accordingly
+- Expected results
+- 10 selected drivers and their corresponding top 10 articles
 
 ## Installation
 First use conda to install the libraries.
@@ -51,6 +64,17 @@ To rank them, you can run:
 ```bash
 python dlib/match_fn.py
 ```
+
+To run the Exploratory Ranking functions, you can do the following:
+```python
+python3 e_rank.py driver_file article_file result_directory N arvn_n
+```
+Where:
+driver_file is the location of a text file of divers
+article_file is the location of a .jsonl file with articles
+result_directory is an existing directory where you want the results to go
+N is the number of text elements wanted from the score vector in ARVN (default 10) 
+arvn_n is the number of text elements wanted from ARVN (default 10)
 
 ## Using the functions
 To call the ranking functions from a different script in the same folder, you can do the following:
