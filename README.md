@@ -9,7 +9,7 @@ In this project we are performing two main tasks, both of which are based on a s
 - Given a query, rank a list of articles
 - Given an article, rank a list of queries  
 
-This specific branch is written as per instructions from Hui as per this email:
+This specific branch is written as per instructions from Hui as per this email, although he came up with this idea, it does not work nor is feasible at this point:
 
 - Driver-Article Matching(DAM): Anik's algorithm
 - Driver-Article Relevance Value( DARV): Similarity output value by DAM for each Article against each Driver
@@ -66,11 +66,17 @@ To run the Exploratory Ranking functions, you can do the following:
 python3 e_rank.py driver_file article_file result_directory N arvn_n
 ```
 Where:
+
 driver_file is the location of a text file of divers
+
 article_file is the location of a .jsonl file with articles
+
 result_directory is an existing directory where you want the results to go
+
 N is the number of text elements wanted from the score vector in ARVN (default 10) 
+
 arvn_n is the number of text elements wanted from ARVN (default 10)
+
 
 ## Using the functions
 To call the ranking functions from a different script in the same folder, you can do the following:
