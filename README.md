@@ -33,10 +33,6 @@ The `word_tokenize` function in nltk requires punkt tokenizer, so after installi
 python -c "import nltk; nltk.download('punkt')"
 ```
 
-A directory called `data` is also need to store the weights, so mkdir can be used to make one:
-```bash
-mkdir data
-```
 The model weights can be dowloaded from the link below, and should be unzipped in the data directory:
 
 Link to model weights: https://rpi.box.com/s/ym36qaofw2rk93h3t7zbpnphu25p0q7z

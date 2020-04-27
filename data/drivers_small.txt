@@ -1,0 +1,17 @@
+This project
+is focuses on
+doing
+information
+retrieval
+by using neural models
+We leverage
+the semantic
+meaning
+learned
+by neural models
+to
+match
+a query with an article
+and send
+to a POST endpoint
+via Flask.
