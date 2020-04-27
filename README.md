@@ -9,7 +9,7 @@ In this project we are performing two main tasks, both of which are based on a s
 - Given a query, rank a list of articles
 - Given an article, rank a list of queries  
 
-This specific branch is written as per instructions from Hui as per this email:
+This specific branch is written as per instructions from Hui as per this email, although he came up with this idea, it does not work nor is feasible at this point:
 
 - Driver-Article Matching(DAM): Anik's algorithm
 - Driver-Article Relevance Value( DARV): Similarity output value by DAM for each Article against each Driver
